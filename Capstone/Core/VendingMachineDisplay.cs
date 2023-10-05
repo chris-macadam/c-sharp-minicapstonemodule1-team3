@@ -21,7 +21,7 @@ namespace Capstone.Core
             string output = "";
             foreach(KeyValuePair<string,InventorySlot> slot in Machine.Slots)
             {
-                output += $"{slot.Key}: {slot.Value.Item.Name} | {slot.Value.CurrentAmount} / {InventorySlot.MaxAmount}\n";
+                output += $"{slot.Key}: {slot.Value.Item.Name} | {slot.Value.Item.Price.ToString("C")} | {slot.Value.CurrentAmount} / {InventorySlot.MaxAmount}\n";
             }
             Console.Write(output);
         }
@@ -55,7 +55,10 @@ namespace Capstone.Core
             }
             else if(choice == 4)
             {
-                VendingMachineFileIO.CreateSalesReport(Machine.ItemsSold);
+                Console.Clear();
+                Console.WriteLine(VendingMachineFileIO.CreateSalesReport(Machine.ItemsSold));
+                Console.ReadKey(true);
+                MainMenu();
             }
         }
 
@@ -102,7 +105,7 @@ namespace Capstone.Core
             {
                 Console.Write("$");
                 input = Console.ReadLine();
-                isValidInput = int.TryParse(input, out dollarAmount);
+                isValidInput = int.TryParse(input, out dollarAmount) && dollarAmount > 0;
                 if (!isValidInput)
                 {
                     Console.SetCursorPosition(0, Console.CursorTop - 1);

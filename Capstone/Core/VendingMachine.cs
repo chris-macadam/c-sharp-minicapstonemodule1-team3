@@ -41,11 +41,35 @@ namespace Capstone.Core
             {
                 {"quarter", 0 },
                 {"dime", 0 },
-                {"nickle", 0 },
+                {"nickel", 0 },
                 {"penny", 0 }
             };
 
             //do logic
+            decimal currentChange = 0.0M;
+            while(currentChange < UserBalance)
+            {
+                if(UserBalance - currentChange >= 0.25M)
+                {
+                    currentChange += 0.25M;
+                    coinCount["quarter"] += 1;
+                }
+                else if (UserBalance - currentChange >= 0.10M)
+                {
+                    currentChange += 0.10M;
+                    coinCount["dime"] += 1;
+                }
+                else if (UserBalance - currentChange >= 0.05M)
+                {
+                    currentChange += 0.05M;
+                    coinCount["nickel"] += 1;
+                }
+                else if (UserBalance - currentChange >= 0.01M)
+                {
+                    currentChange += 0.01M;
+                    coinCount["penny"] += 1;
+                }
+            }
 
             //update balance
             UserBalance = 0;
