@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Capstone.FileIO;
+using System;
 
 namespace Capstone.Core
 {
@@ -6,6 +7,8 @@ namespace Capstone.Core
     {
         static void Main(string[] args)
         {
+            VendingMachine machine = new VendingMachine(VendingMachineFileIO.ReadFile());
+            machine.Display.MainMenu();
 
         }
     }

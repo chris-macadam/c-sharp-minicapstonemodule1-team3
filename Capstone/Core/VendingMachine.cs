@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
+using Capstone.FileIO;
 
 namespace Capstone.Core
 {
@@ -10,27 +13,28 @@ namespace Capstone.Core
     {
         public Dictionary<string, InventorySlot> Slots { get; private set; } = new Dictionary<string, InventorySlot>();
         public Dictionary<string, int> ItemsSold { get; private set; } = new Dictionary<string, int>();
+        public VendingMachineDisplay Display { get; private set; } 
         public decimal Profit { get; private set; }
         public decimal UserBalance { get; private set; }
 
-        public VendingMachine()
+        public VendingMachine(Dictionary<string,InventorySlot> slots)
         {
-            //read stuff from file
-        }
-
-        public string DisplayInventory()
-        {
-            return "";
+            Slots = slots;
+            Display = new VendingMachineDisplay(this);
+            using (StreamWriter sw = new StreamWriter("TransactionLog.txt"))
+            {
+                sw.Write("");
+            }
         }
 
         public void FeedMoney(decimal amount)
         {
             UserBalance += amount;
             Transaction transaction = new Transaction("FEED MONEY:", amount, UserBalance);
-            UpdateTransactionLog(transaction);
+            VendingMachineFileIO.UpdateTransactionLog(transaction);
         }
 
-        public void GiveChange()
+        public Dictionary<string,int> GiveChange()
         {
             decimal amount = UserBalance;
             Dictionary<string, int> coinCount = new Dictionary<string, int>() 
@@ -47,7 +51,9 @@ namespace Capstone.Core
             UserBalance = 0;
 
             Transaction transaction = new Transaction("GIVE CHANGE:", amount, UserBalance);
-            UpdateTransactionLog(transaction);
+            VendingMachineFileIO.UpdateTransactionLog(transaction);
+
+            return coinCount;
         }
 
         public string SellItem(string slotName)
@@ -69,34 +75,31 @@ namespace Capstone.Core
             }
             else
             {
-                UserBalance -= slot.Item.Price;
-                Profit += slot.Item.Price;
-                slot.CurrentAmount -= 1;
-
-                if (ItemsSold.ContainsKey(slot.Item.Name))
+                if(slot.Item.Price > UserBalance)
                 {
-                    ItemsSold[slot.Item.Name] += 1;
+                    return "INSUFFICIENT FUNDS";
                 }
                 else
                 {
-                    ItemsSold[slot.Item.Name] = 1;
+                    UserBalance -= slot.Item.Price;
+                    Profit += slot.Item.Price;
+                    slot.CurrentAmount -= 1;
+
+                    if (ItemsSold.ContainsKey(slot.Item.Name))
+                    {
+                        ItemsSold[slot.Item.Name] += 1;
+                    }
+                    else
+                    {
+                        ItemsSold[slot.Item.Name] = 1;
+                    }
+
+                    Transaction transaction = new Transaction(slot.ToString(), slot.Item.Price, UserBalance);
+                    VendingMachineFileIO.UpdateTransactionLog(transaction);
+
+                    return slot.Item.SaleMessage;
                 }
-
-                Transaction transaction = new Transaction(slot.ToString(), slot.Item.Price, UserBalance);
-                UpdateTransactionLog(transaction);
-
-                return slot.Item.SaleMessage;
             }
-        }
-
-        public void UpdateTransactionLog(Transaction transaction)
-        {
-
-        }
-
-        public void CreateSalesReport()
-        {
-
-        }
+        } 
     }
 }

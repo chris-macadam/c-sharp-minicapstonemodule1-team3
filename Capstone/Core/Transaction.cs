@@ -27,7 +27,7 @@ namespace Capstone.Core
 
         public override string ToString()
         {
-            return $"{TimeOfTransaction} {TransactionType} {TransactionAmount} {Balance}";
+            return $"{TimeOfTransaction} {TransactionType} {TransactionAmount.ToString("C")} {Balance.ToString("C")}";
         }
     }
 }
