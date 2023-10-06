@@ -13,7 +13,8 @@ namespace Capstone.Core
 {
     public class VendingMachineDisplay
     {
-        SoundPlayer player = new SoundPlayer(@"Sounds/Coin Loading.wav");
+        SoundPlayer coinLoad = new SoundPlayer(@"Sounds/Coin Loading.wav");
+        SoundPlayer coinDispense = new SoundPlayer(@"Sounds/Coin Dispensing.wav");
        
         
         public VendingMachine Machine { get; private set; }
@@ -121,7 +122,7 @@ namespace Capstone.Core
                     Console.SetCursorPosition(0, Console.CursorTop);
                 }
             }while (!isValidInput);
-            player.PlaySync();
+            coinLoad.PlaySync();
             Machine.FeedMoney(dollarAmount);
             
         }
@@ -149,11 +150,11 @@ namespace Capstone.Core
             {
                 output += $"{count.Key}(s): {count.Value}\n";
             }
-            if (value > 0.0M) {
-                DisplayAnimation(@"Animations/CoinsFrames", 12);
-                Console.Clear();
-            }
             Console.Write(output + "\n\n" + value.ToString("C"));
+            if (value > 0.0M)
+            {
+                coinDispense.PlaySync();
+            }
         }
 
         public void DisplayAnimation(string folderPath, int fps = 24, bool reverse= false)
@@ -166,11 +167,6 @@ namespace Capstone.Core
                 Console.Clear();
                 Console.SetCursorPosition(0, 0);
                 Console.Write(frames[i].Insert(0,i.ToString()));
-                if (Console.KeyAvailable)
-                {
-                    Console.ReadKey(true);
-                    Console.ReadKey(true);
-                }
                 Thread.Sleep(fps);
             }
             if (reverse)
