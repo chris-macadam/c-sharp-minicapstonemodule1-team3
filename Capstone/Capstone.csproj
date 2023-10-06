@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.Windows.Extensions" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="Animations\CoinsFrames\Coins000.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -349,6 +353,18 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Animations\VendingMachineFrames\VendingMachine5.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sounds\Coin Dispensing.mp3">
+      <CopyToOutputDirectory></CopyToOutputDirectory>
+    </None>
+    <None Update="Sounds\Coin Dispensing.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sounds\Coin Loading.mp3">
+      <CopyToOutputDirectory></CopyToOutputDirectory>
+    </None>
+    <None Update="Sounds\Coin Loading.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="vendingmachine.csv">

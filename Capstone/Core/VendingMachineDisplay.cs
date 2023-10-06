@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Media;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading;
@@ -12,6 +13,9 @@ namespace Capstone.Core
 {
     public class VendingMachineDisplay
     {
+        SoundPlayer player = new SoundPlayer(@"Sounds/Coin Loading.wav");
+       
+        
         public VendingMachine Machine { get; private set; }
 
         public VendingMachineDisplay(VendingMachine machine)
@@ -117,7 +121,7 @@ namespace Capstone.Core
                     Console.SetCursorPosition(0, Console.CursorTop);
                 }
             }while (!isValidInput);
-
+            player.PlaySync();
             Machine.FeedMoney(dollarAmount);
             
         }

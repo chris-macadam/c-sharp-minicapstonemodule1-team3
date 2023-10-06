@@ -1,8 +1,6 @@
 # Vending Machine Application
 
 ## To Do
-- make everything we can as case-insensitive as possible
-- Add sick coin dispensing animations
 - figure out sound so we can have sick coin dispensing sounds. Maybe ask Mac about media player stuff
 - maybe we could use some more try/catch blocks
 - Fun little icons for each kind of ISellable to display?
