@@ -16,6 +16,7 @@ namespace Capstone.Core
         {
             Machine = machine;
         }
+
         public void DisplayInventory()
         {
             string output = "";
@@ -25,6 +26,7 @@ namespace Capstone.Core
             }
             Console.Write(output);
         }
+
         public void MainMenu()
         {
             Console.Clear();
@@ -56,7 +58,7 @@ namespace Capstone.Core
             else if(choice == 4)
             {
                 Console.Clear();
-                Console.WriteLine(VendingMachineFileIO.CreateSalesReport(Machine.ItemsSold));
+                Console.WriteLine(VendingMachineFileIO.CreateSalesReport(Machine));
                 Console.ReadKey(true);
                 MainMenu();
             }

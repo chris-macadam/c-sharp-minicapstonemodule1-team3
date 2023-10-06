@@ -16,7 +16,6 @@ namespace Capstone.Core
 
         public decimal Balance { get; private set; }
 
-
         public Transaction(string transactionType, decimal transactionAmount, decimal balance)
         {
             TimeOfTransaction = DateTime.Now;

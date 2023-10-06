@@ -57,6 +57,7 @@ namespace Capstone.FileIO
 
             return output;
         }
+
         public static void UpdateTransactionLog(Transaction transaction)
         {
             using (StreamWriter sw = new StreamWriter("TransactionLog.txt",true))
@@ -65,18 +66,20 @@ namespace Capstone.FileIO
             }
         }
 
-        public static string CreateSalesReport(Dictionary<string,int> itemsSold)
+        public static string CreateSalesReport(VendingMachine vendingMachine)
         {
             string output = "";
             try
             {
                 using (StreamWriter sw = new StreamWriter("SalesReport.txt"))
                 {
-                    foreach (KeyValuePair<string, int> item in itemsSold)
+                    foreach (KeyValuePair<string, int> item in vendingMachine.ItemsSold)
                     {
                         output += $"{item.Key}|{item.Value}\n";
-                        sw.Write(output);
                     }
+
+                    output += $"\n{vendingMachine.Profit}";
+                    sw.Write(output);
                 }
             }
             catch (IOException e)
