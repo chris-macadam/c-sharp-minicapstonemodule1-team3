@@ -166,7 +166,7 @@ namespace Capstone.Core
             {
                 Console.Clear();
                 Console.SetCursorPosition(0, 0);
-                Console.Write(frames[i].Insert(0,i.ToString()));
+                Console.Write(frames[i]);
                 Thread.Sleep(fps);
             }
             if (reverse)

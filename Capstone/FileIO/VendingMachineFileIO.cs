@@ -55,7 +55,6 @@ namespace Capstone.FileIO
             {
 
             }
-
             return output;
         }
 
