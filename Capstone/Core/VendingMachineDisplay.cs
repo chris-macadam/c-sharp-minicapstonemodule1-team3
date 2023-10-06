@@ -127,7 +127,7 @@ namespace Capstone.Core
             Console.Clear();
             DisplayInventory();
             Console.WriteLine("\nEnter Code Of Desired Item: ");
-            string userInput = Console.ReadLine();
+            string userInput = Console.ReadLine().ToUpper();
 
             string output = Machine.SellItem(userInput);
             Console.WriteLine(output);
@@ -136,40 +136,50 @@ namespace Capstone.Core
         public void FinishTransaction()
         {
             Console.Clear();
+            decimal value = Machine.UserBalance;
             Dictionary <string, int> coinCount = Machine.GiveChange();
+
             //display coins
             string output = "";
             foreach(KeyValuePair<string,int> count in coinCount)
             {
                 output += $"{count.Key}(s): {count.Value}\n";
             }
-            Console.Write(output);
+            if (value > 0.0M) {
+                DisplayAnimation(@"Animations/CoinsFrames", 12);
+                Console.Clear();
+            }
+            Console.Write(output + "\n\n" + value.ToString("C"));
         }
 
-        public void DisplayTitleAnimation()
+        public void DisplayAnimation(string folderPath, int fps = 24, bool reverse= false)
         {
-            List<string> frames = VendingMachineFileIO.ReadAsciiFromFile(@"VendingMachineFrames");
-            foreach (string frame in frames)
+            fps = 1000 / fps;
+
+            List<string> frames = VendingMachineFileIO.ReadAsciiFromFile(folderPath);
+            for(int i = 0; i < frames.Count; i++)
             {
                 Console.Clear();
                 Console.SetCursorPosition(0, 0);
-                Console.Write(frame);
+                Console.Write(frames[i].Insert(0,i.ToString()));
                 if (Console.KeyAvailable)
                 {
                     Console.ReadKey(true);
                     Console.ReadKey(true);
                 }
-                Thread.Sleep(100);
+                Thread.Sleep(fps);
             }
-            Console.ReadKey(true);
-            for(int i = frames.Count-1; i >= 0; i--)
+            if (reverse)
             {
-                Console.Clear();
-                Console.SetCursorPosition(0, 0);
-                Console.Write(frames[i]);
-                Thread.Sleep(100);
+                Console.ReadKey(true);
+                for (int i = frames.Count - 1; i >= 0; i--)
+                {
+                    Console.Clear();
+                    Console.SetCursorPosition(0, 0);
+                    Console.Write(frames[i]);
+                    Thread.Sleep(fps);
+                }
             }
-            MainMenu();
         }
     }
 }

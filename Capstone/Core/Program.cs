@@ -8,7 +8,8 @@ namespace Capstone.Core
         static void Main(string[] args)
         {
             VendingMachine machine = new VendingMachine(VendingMachineFileIO.ReadFile());
-            machine.Display.DisplayTitleAnimation();
+            machine.Display.DisplayAnimation(@"Animations\VendingMachineFrames", 5, true);
+            machine.Display.MainMenu();
 
         }
     }
