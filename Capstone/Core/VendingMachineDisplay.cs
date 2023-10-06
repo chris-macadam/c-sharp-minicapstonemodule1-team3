@@ -1,9 +1,11 @@
 ﻿using Capstone.FileIO;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Capstone.Core
@@ -142,6 +144,25 @@ namespace Capstone.Core
                 output += $"{count.Key}(s): {count.Value}\n";
             }
             Console.Write(output);
+        }
+
+        public void DisplayTitleAnimation()
+        {
+            List<string> frames = VendingMachineFileIO.ReadAsciiFromFile(@"VendingMachineFrames");
+            foreach (string frame in frames)
+            {
+                Console.Clear();
+                Console.SetCursorPosition(0, 0);
+                Console.Write(frame);
+                if (Console.KeyAvailable)
+                {
+                    Console.ReadKey(true);
+                    Console.ReadKey(true);
+                }
+                Thread.Sleep(500);
+            }
+            Console.ReadKey(true);
+            MainMenu();
         }
     }
 }

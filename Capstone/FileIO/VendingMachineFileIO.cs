@@ -11,6 +11,7 @@ namespace Capstone.FileIO
 {
     public static class VendingMachineFileIO
     {
+        public static string splitString = "|";
         public static Dictionary<string, InventorySlot> ReadFile()
         {
             Dictionary<string, InventorySlot> output = new Dictionary<string, InventorySlot>();
@@ -21,7 +22,7 @@ namespace Capstone.FileIO
                     while (!sr.EndOfStream)
                     {
                         string line = sr.ReadLine();
-                        string[] lineSegments = line.Split('|');
+                        string[] lineSegments = line.Split(splitString);
                         ISellable sellable = null;
                         if (lineSegments[lineSegments.Length-1] == "Duck")
                         {
@@ -87,6 +88,22 @@ namespace Capstone.FileIO
                 Console.WriteLine(e.Message);
             }
             return output;
+        }
+
+        public static List<string> ReadAsciiFromFile(string asciiFolderPath)
+        {
+            List<string> asciiFileList = new List<string>();
+            List<string> frames = new List<string>();
+            asciiFileList.AddRange(Directory.GetFiles(asciiFolderPath, "*.txt"));
+
+            foreach (string filePath in asciiFileList)
+            {
+                using (StreamReader sr = new StreamReader(filePath))
+                {
+                    frames.Add(sr.ReadToEnd().Replace(splitString, "\n"));
+                }
+            }
+            return frames;
         }
     }
 }
