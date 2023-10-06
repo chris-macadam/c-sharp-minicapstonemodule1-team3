@@ -159,9 +159,16 @@ namespace Capstone.Core
                     Console.ReadKey(true);
                     Console.ReadKey(true);
                 }
-                Thread.Sleep(500);
+                Thread.Sleep(100);
             }
             Console.ReadKey(true);
+            for(int i = frames.Count-1; i >= 0; i--)
+            {
+                Console.Clear();
+                Console.SetCursorPosition(0, 0);
+                Console.Write(frames[i]);
+                Thread.Sleep(100);
+            }
             MainMenu();
         }
     }
