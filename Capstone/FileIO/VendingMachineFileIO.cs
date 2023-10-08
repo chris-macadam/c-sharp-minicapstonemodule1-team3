@@ -2,6 +2,7 @@
 using Capstone.Sellable;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -11,13 +12,15 @@ namespace Capstone.FileIO
 {
     public static class VendingMachineFileIO
     {
+        private const string InventoryFilePath = "vendingmachine.csv";
         public static string splitString = "|";
+
         public static Dictionary<string, InventorySlot> ReadFile()
         {
             Dictionary<string, InventorySlot> output = new Dictionary<string, InventorySlot>();
             try
             {
-                using (StreamReader sr = new StreamReader("vendingmachine.csv"))
+                using (StreamReader sr = new StreamReader(InventoryFilePath))
                 {
                     while (!sr.EndOfStream)
                     {
@@ -49,13 +52,18 @@ namespace Capstone.FileIO
             }
             catch(IOException e)
             {
-                Console.WriteLine(e.Message);
-            }
-            catch
-            {
-
+                Debug.WriteLine(e.Message);
+                //Console.WriteLine(e.Message);
             }
             return output;
+        }
+
+        public static void GenerateNewTransactionLog()
+        {
+            using (StreamWriter sw = new StreamWriter("TransactionLog.txt"))
+            {
+                sw.Write("");
+            }
         }
 
         public static void UpdateTransactionLog(Transaction transaction)
@@ -84,7 +92,8 @@ namespace Capstone.FileIO
             }
             catch (IOException e)
             {
-                Console.WriteLine(e.Message);
+                Debug.WriteLine(e.Message);
+                //Console.WriteLine(e.Message);
             }
             return output;
         }

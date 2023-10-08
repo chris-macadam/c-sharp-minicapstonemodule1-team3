@@ -15,13 +15,16 @@ namespace Capstone.Core
     {
         SoundPlayer coinLoad = new SoundPlayer(@"Sounds/Coin Loading.wav");
         SoundPlayer coinDispense = new SoundPlayer(@"Sounds/Coin Dispensing.wav");
-       
-        
+
+        const string titleScreenAnimationPath = @"Animations\VendingMachineFrames";
+
         public VendingMachine Machine { get; private set; }
 
         public VendingMachineDisplay(VendingMachine machine)
         {
             Machine = machine;
+            DisplayTitleScreen();
+            MainMenu();
         }
 
         public void DisplayInventory()
@@ -155,6 +158,11 @@ namespace Capstone.Core
             {
                 coinDispense.PlaySync();
             }
+        }
+
+        public void DisplayTitleScreen()
+        {
+            DisplayAnimation(titleScreenAnimationPath, 5, true);
         }
 
         public void DisplayAnimation(string folderPath, int fps = 24, bool reverse= false)

@@ -7,7 +7,7 @@ namespace Capstone.Core
     {
         static void Main(string[] args)
         {
-            VendingMachine machine = new VendingMachine(VendingMachineFileIO.ReadFile());
+            VendingMachineDisplay display = new VendingMachineDisplay(new VendingMachine(VendingMachineFileIO.ReadFile()));
         }
     }
 }

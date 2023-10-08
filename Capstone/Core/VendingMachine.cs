@@ -18,24 +18,30 @@ namespace Capstone.Core
         public decimal Profit { get; private set; }
         public decimal UserBalance { get; private set; }
 
-        public VendingMachine(Dictionary<string,InventorySlot> slots)
+        public VendingMachine(Dictionary<string, InventorySlot> slots)
         {
+            VendingMachineFileIO.GenerateNewTransactionLog();
+
             Slots = slots;
             Display = new VendingMachineDisplay(this);
-            using (StreamWriter sw = new StreamWriter("TransactionLog.txt"))
-            {
-                sw.Write("");
-            }
-            
-            Display.DisplayAnimation(@"Animations\VendingMachineFrames", 5, true);
-            Display.MainMenu();
         }
 
-        public void FeedMoney(decimal amount)
+        public VendingMachine(Dictionary<string, InventorySlot> slots, VendingMachineDisplay display) 
         {
+            VendingMachineFileIO.GenerateNewTransactionLog();
+
+            Slots = slots;
+            Display = display;
+        }
+
+        public decimal FeedMoney(decimal amount)
+        {
+            if (amount <= 0) return UserBalance;
+
             UserBalance += amount;
             Transaction transaction = new Transaction("FEED MONEY:", amount, UserBalance);
             VendingMachineFileIO.UpdateTransactionLog(transaction);
+            return UserBalance;
         }
 
         public Dictionary<string,int> GiveChange()
@@ -87,6 +93,7 @@ namespace Capstone.Core
         public string SellItem(string slotName)
         {
             InventorySlot slot = null;
+            slotName = slotName.ToUpper();
 
             if (Slots.ContainsKey(slotName))
             {
