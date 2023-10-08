@@ -14,24 +14,14 @@ namespace Capstone.Core
     {
         public Dictionary<string, InventorySlot> Slots { get; private set; } = new Dictionary<string, InventorySlot>();
         public Dictionary<string, int> ItemsSold { get; private set; } = new Dictionary<string, int>();
-        public VendingMachineDisplay Display { get; private set; } 
         public decimal Profit { get; private set; }
         public decimal UserBalance { get; private set; }
 
-        public VendingMachine(Dictionary<string, InventorySlot> slots)
+        public VendingMachine(Dictionary<string, InventorySlot> slots) 
         {
             VendingMachineFileIO.GenerateNewTransactionLog();
 
             Slots = slots;
-            Display = new VendingMachineDisplay(this);
-        }
-
-        public VendingMachine(Dictionary<string, InventorySlot> slots, VendingMachineDisplay display) 
-        {
-            VendingMachineFileIO.GenerateNewTransactionLog();
-
-            Slots = slots;
-            Display = display;
         }
 
         public decimal FeedMoney(decimal amount)

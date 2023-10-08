@@ -23,8 +23,6 @@ namespace Capstone.Core
         public VendingMachineDisplay(VendingMachine machine)
         {
             Machine = machine;
-            DisplayTitleScreen();
-            MainMenu();
         }
 
         public void DisplayInventory()
