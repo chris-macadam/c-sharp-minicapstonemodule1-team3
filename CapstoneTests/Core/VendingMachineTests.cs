@@ -11,7 +11,7 @@ namespace CapstoneTests.Core
         [TestMethod]
         public void FeedMoney_HandlePositive()
         {
-            VendingMachine vendingMachine = new VendingMachine(null, null);
+            VendingMachine vendingMachine = new VendingMachine(null);
 
             decimal inputAmount = 5;
             decimal balance = vendingMachine.FeedMoney(inputAmount);
@@ -22,7 +22,7 @@ namespace CapstoneTests.Core
         [TestMethod]
         public void FeedMoney_HandleNegative()
         {
-            VendingMachine vendingMachine = new VendingMachine(null, null);
+            VendingMachine vendingMachine = new VendingMachine(null);
 
             decimal inputAmount = -5;
             decimal balance = vendingMachine.FeedMoney(inputAmount);
@@ -34,7 +34,7 @@ namespace CapstoneTests.Core
         [TestMethod]
         public void FeedMoney_AccumulateBalance()
         {
-            VendingMachine vendingMachine = new VendingMachine(null, null);
+            VendingMachine vendingMachine = new VendingMachine(null);
 
             decimal inputAmount = 5;
             vendingMachine.FeedMoney(inputAmount);
@@ -52,7 +52,7 @@ namespace CapstoneTests.Core
                 {"A1", new InventorySlot("A1", new Duck(1, "TestItem")) }
             };
 
-            VendingMachine vendingMachine = new VendingMachine(testSlots, null);
+            VendingMachine vendingMachine = new VendingMachine(testSlots);
 
             decimal inputAmount = 5;
             vendingMachine.FeedMoney(inputAmount);
@@ -71,7 +71,7 @@ namespace CapstoneTests.Core
                 {"A1", new InventorySlot("A1", new Duck(1, "TestItem")) }
             };
 
-            VendingMachine vendingMachine = new VendingMachine(testSlots, null);
+            VendingMachine vendingMachine = new VendingMachine(testSlots);
 
             decimal inputAmount = 5;
             vendingMachine.FeedMoney(inputAmount);
@@ -90,7 +90,7 @@ namespace CapstoneTests.Core
                 {"A1", new InventorySlot("A1", new Duck(1, "TestItem")) }
             };
 
-            VendingMachine vendingMachine = new VendingMachine(testSlots, null);
+            VendingMachine vendingMachine = new VendingMachine(testSlots);
 
             decimal inputAmount = 5;
             vendingMachine.FeedMoney(inputAmount);
@@ -109,7 +109,7 @@ namespace CapstoneTests.Core
                 {"A1", new InventorySlot("A1", new Duck(1, "TestItem")) }
             };
 
-            VendingMachine vendingMachine = new VendingMachine(testSlots, null);
+            VendingMachine vendingMachine = new VendingMachine(testSlots);
 
             decimal inputAmount = 10;
             vendingMachine.FeedMoney(inputAmount);
@@ -129,7 +129,7 @@ namespace CapstoneTests.Core
         [TestMethod]
         public void GiveChange_Dollar()
         {
-            VendingMachine vendingMachine = new VendingMachine(null, null);
+            VendingMachine vendingMachine = new VendingMachine(null);
 
             decimal inputAmount = 1;
             vendingMachine.FeedMoney(inputAmount);
@@ -149,7 +149,7 @@ namespace CapstoneTests.Core
         [TestMethod]
         public void GiveChange_90Cents()
         {
-            VendingMachine vendingMachine = new VendingMachine(null, null);
+            VendingMachine vendingMachine = new VendingMachine(null);
 
             decimal inputAmount = 0.90m;
             vendingMachine.FeedMoney(inputAmount);
@@ -169,7 +169,7 @@ namespace CapstoneTests.Core
         [TestMethod]
         public void GiveChange_7Cents()
         {
-            VendingMachine vendingMachine = new VendingMachine(null, null);
+            VendingMachine vendingMachine = new VendingMachine(null);
 
             decimal inputAmount = 0.07m;
             vendingMachine.FeedMoney(inputAmount);
