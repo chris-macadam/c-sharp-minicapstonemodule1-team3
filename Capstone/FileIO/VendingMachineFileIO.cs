@@ -12,15 +12,15 @@ namespace Capstone.FileIO
 {
     public static class VendingMachineFileIO
     {
-        private const string InventoryFilePath = "vendingmachine.csv";
+        public const string InventoryFilePath = "vendingmachine.csv";
         public static string splitString = "|";
 
-        public static Dictionary<string, InventorySlot> ReadFile()
+        public static Dictionary<string, InventorySlot> ReadFile(string filePath)
         {
             Dictionary<string, InventorySlot> output = new Dictionary<string, InventorySlot>();
             try
             {
-                using (StreamReader sr = new StreamReader(InventoryFilePath))
+                using (StreamReader sr = new StreamReader(filePath))
                 {
                     while (!sr.EndOfStream)
                     {

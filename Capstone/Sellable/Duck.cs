@@ -20,5 +20,31 @@ namespace Capstone.Sellable
             Price = price;
             Name = name;
         }
+
+        public override bool Equals(object obj)
+        {
+            var sellable = obj as ISellable;
+
+            if (sellable == null)
+            {
+                return false;
+            }
+            else if (sellable.Name != Name)
+            {
+                return false;
+            }
+            else if (sellable.Price != Price)
+            {
+                return false;
+            }
+            else if (sellable.SaleMessage != SaleMessage)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
     }
 }
