@@ -93,7 +93,6 @@ namespace Capstone.FileIO
             catch (IOException e)
             {
                 Debug.WriteLine(e.Message);
-                //Console.WriteLine(e.Message);
             }
             return output;
         }

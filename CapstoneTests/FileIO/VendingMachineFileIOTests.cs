@@ -17,14 +17,12 @@ namespace CapstoneTests.FileIO
         static public void Initialize(TestContext testContext)
         {
             testSourceFile = $"{Environment.CurrentDirectory}/TestStock.csv";
+            Assert.IsTrue(File.Exists(testSourceFile));
         }
 
         [TestMethod]
         public void ReadFileTest()
         {
-
-            Assert.IsTrue(File.Exists(testSourceFile));
-
             Dictionary<string, InventorySlot> testDict = new Dictionary<string, InventorySlot>()
             {
                 {"A1", new InventorySlot("A1", new Duck(0.90M, "Yellow Duck")) },
@@ -42,18 +40,16 @@ namespace CapstoneTests.FileIO
         [TestMethod]
         public void CreateSalesReportTest_NoSales()
         {
-            Assert.IsTrue(File.Exists(testSourceFile));
-
             VendingMachine machine = new VendingMachine(VendingMachineFileIO.ReadFile(testSourceFile));
 
             string result = VendingMachineFileIO.CreateSalesReport(machine);
 
             Assert.AreEqual("\n0", result);
         }
+
         [TestMethod]
         public void CreateSalesReportTest_WIthSales()
         {
-            Assert.IsTrue(File.Exists(testSourceFile));
 
             VendingMachine machine = new VendingMachine(VendingMachineFileIO.ReadFile(testSourceFile));
             machine.FeedMoney(10);
